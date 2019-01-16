@@ -1,0 +1,20 @@
+extends layout
+
+block title
+  title myapp
+  
+block content
+  h4= theuser.username
+  h1= theuser.name
+  br
+  if(theuser.age != "NA")
+    h3= "Age: "+theuser.age
+  if(theuser.relationship != "NA")
+    h3= "Relationship: "+theuser.relationship
+  if(theuser.job != "NA")
+    h3= "Job: "+theuser.job
+  if(theuser.education != "NA")
+    h3= "Education: "+theuser.education
+  
+  if(user.username == theuser.username)
+    a(href="/somewhere") Edit your profile

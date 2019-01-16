@@ -6,18 +6,19 @@ const passport = require('passport');
 //Bring in post model
 let User = require('../models/user');
 
-router.get('/login', (req, res) =>{
+router.get('/login', ensureUnAuthenticated, (req, res) =>{
   res.render('login');
 });
 
-router.get('/register', (req, res) =>{
+router.get('/register', ensureUnAuthenticated, (req, res) =>{
   res.render('register');
 });
 
+// Register POST request
 router.post('/register', (req, res) =>{
   const name = req.body.name;
-  const email = req.body.email;
-  const username = req.body.username;
+  const email = req.body.email.toLowerCase();
+  const username = req.body.username.toLowerCase();
   const password = req.body.password;
   const password2 = req.body.password2;
 
@@ -87,5 +88,54 @@ router.post('/register', (req, res) =>{
     });
   }
 });
+
+// Login POST request
+router.post('/login', (req, res, next) =>{
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/users/login',
+    failureFlash: true
+  })(req, res, next);
+});
+
+router.get('/logout', (req, res) =>{
+  req.logout();
+  req.flash('success', 'You are logged out');
+  res.redirect('/users/login');
+});
+
+router.get('/:id', ensureAuthenticated, (req, res) => {
+  let query = {username:req.params.id};
+  User.findOne(query, function(err, user){
+    if(err) throw err;
+
+    if(user){
+      res.render('profile', {
+        theuser:user
+      });
+    }else{
+      req.flash('success', 'no user found');
+      res.redirect('/');
+    }
+  })
+});
+
+// Access Control
+function ensureAuthenticated(req, res, next){
+  if(req.isAuthenticated()){
+    return next();
+  }else{
+    res.redirect('/users/login');
+  }
+}
+
+// Checks if user is logged in or not and if they ARE logged in then they are redirected to index so that they cannot login/register
+function ensureUnAuthenticated(req, res, next){
+  if(req.isAuthenticated()){
+    res.redirect('/');
+  }else{
+    return next();
+  }
+}
 
 module.exports = router;

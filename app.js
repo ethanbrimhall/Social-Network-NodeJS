@@ -64,7 +64,12 @@ app.use(expressValidator({
   }
 }));
 
+// Passport Config
+require('./config/passport')(passport);
 
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('*', (req, res, next) =>{
   res.locals.user = req.user || null;
@@ -75,7 +80,6 @@ app.get('*', (req, res, next) =>{
 app.get('/', ensureAuthenticated, (req, res) =>{
   res.render('index');
 });
-
 
 // Access Control
 function ensureAuthenticated(req, res, next){
