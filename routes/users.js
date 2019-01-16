@@ -120,7 +120,7 @@ router.get('/:id', ensureAuthenticated, (req, res) => {
   })
 });
 
-// Access Control
+// Checks if user is logged in and redirects to login if NOT
 function ensureAuthenticated(req, res, next){
   if(req.isAuthenticated()){
     return next();
