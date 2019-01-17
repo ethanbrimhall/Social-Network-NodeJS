@@ -89,8 +89,11 @@ app.post('/', ensureAuthenticated, (req, res) =>{
     if(err){
       console.log(err);
     }
-    console.log(users);
-    res.redirect('/');
+
+    return res.render('index', {
+      user:req.user,
+      foundUsers: users
+    });
   });
 });
 
