@@ -6,7 +6,6 @@ block title
 block content
   h4= theuser.username
   h1= theuser.name
-  br
   if(theuser.age != "NA")
     h3= "Age: "+theuser.age
   if(theuser.relationship != "NA")
@@ -18,3 +17,6 @@ block content
   
   if(user.username == theuser.username)
     a(href="/users/"+user.username+"/edit") Edit your profile
+  br
+  br
+  a(href='/') Home

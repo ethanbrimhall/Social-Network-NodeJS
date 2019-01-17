@@ -16,11 +16,11 @@ block content
     #form-group
       label Your Relationship:
       select(name='Relations')
-        option(value='current')!= theuser.relationship
-        option(value='single') Single
-        option(value='married') Married
-        option(value='enganged') Enganged
-        option(value='dating') Dating
+        option(value='NA')!= theuser.relationship
+        option(value='Single') Single
+        option(value='Married') Married
+        option(value='Enganged') Enganged
+        option(value='Dating') Dating
     #form-group
       label Your Job:
       input.form-control(name='job', type='text' value!= theuser.job)

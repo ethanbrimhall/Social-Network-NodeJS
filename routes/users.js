@@ -120,7 +120,27 @@ router.get('/logout', (req, res) =>{
 });
 
 router.post('/:id/edit', ensureAuthenticated, (req, res) =>{
+  let user = {};
+  user.name = req.body.name;
+  user.email = req.user.email;
+  user.username = req.user.username;
+  user.password = req.user.password;
+  user.age = req.body.age;
+  user.relationship = req.body.Relations;
+  user.job = req.body.job;
+  user.education = req.body.education;
 
+  let query = {username:req.params.id};
+
+  User.updateOne(query, user, function(err){
+    if(err){
+      console.log(err);
+      return;
+    }else{
+      req.flash('success', 'Profile updated successfull!');
+      res.redirect('/users/'+req.user.username);
+    }
+  });
 });
 
 router.get('/:id', ensureAuthenticated, (req, res) => {
