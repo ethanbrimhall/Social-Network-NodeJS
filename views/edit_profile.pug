@@ -1,0 +1,32 @@
+extends layout
+
+block title
+  title myapp
+
+block content
+  h1 Edit Profile
+  h3!= theuser.username
+  form(method='POST', action='/users/'+theuser.username+"/edit")
+    #form-group
+      label Your Name:
+      input.form-control(name='name', type='text' value!= theuser.name)
+    #form-group
+      label Your Age:
+      input.form-control(name='age', type='text' value!= theuser.age)
+    #form-group
+      label Your Relationship:
+      select(name='Relations')
+        option(value='current')!= theuser.relationship
+        option(value='single') Single
+        option(value='married') Married
+        option(value='enganged') Enganged
+        option(value='dating') Dating
+    #form-group
+      label Your Job:
+      input.form-control(name='job', type='text' value!= theuser.job)
+    #form-group
+      label Your Education:
+      input.form-control(name='education', type='text' value!= theuser.education)
+    br
+    input.btn.btn-primary(type='submit', value='Submit')
+  

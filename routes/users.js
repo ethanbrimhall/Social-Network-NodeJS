@@ -14,6 +14,17 @@ router.get('/register', ensureUnAuthenticated, (req, res) =>{
   res.render('register');
 });
 
+router.get('/:id/edit', ensureAuthenticated, (req, res) =>{
+  if(req.user.username == req.params.id){
+    res.render('edit_profile', {
+      theuser: req.user
+    });
+  }else{
+    req.flash('success', 'you do not have permissions');
+    res.redirect('/');
+  }
+});
+
 // Register POST request
 router.post('/register', (req, res) =>{
   const name = req.body.name;
@@ -55,6 +66,10 @@ router.post('/register', (req, res) =>{
             errors: [{param:"username", msg:"Username is already in use", value: ""}]
           });
         }
+      }else if(username == "register" || username == "login" || username == "logout"){
+        res.render('register', {
+          errors: [{param:"username", msg:"Username is already in use", value: ""}]
+        });
       }else{
         let newUser = new User({
           name:name,
@@ -102,6 +117,10 @@ router.get('/logout', (req, res) =>{
   req.logout();
   req.flash('success', 'You are logged out');
   res.redirect('/users/login');
+});
+
+router.post('/:id/edit', ensureAuthenticated, (req, res) =>{
+
 });
 
 router.get('/:id', ensureAuthenticated, (req, res) => {
