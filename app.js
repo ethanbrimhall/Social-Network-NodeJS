@@ -11,6 +11,8 @@ const config = require('./config/database')
 mongoose.connect(config.database);
 let db = mongoose.connection;
 
+let User = require('./models/user');
+
 // Check DB connection
 db.once('open', () =>{
   console.log('connected to mongoDB');
@@ -79,6 +81,17 @@ app.get('*', (req, res, next) =>{
 // Feed route
 app.get('/', ensureAuthenticated, (req, res) =>{
   res.render('index');
+});
+
+app.post('/', ensureAuthenticated, (req, res) =>{
+  let query = {name:{$regex: req.body.name, $options: "i"}};
+  User.find(query, function(err, users){
+    if(err){
+      console.log(err);
+    }
+    console.log(users);
+    res.redirect('/');
+  });
 });
 
 // Access Control

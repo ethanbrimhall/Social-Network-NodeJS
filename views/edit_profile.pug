@@ -16,7 +16,6 @@ block content
     #form-group
       label Your Relationship:
       select(name='Relations')
-        option(value='NA')!= theuser.relationship
         option(value='Single') Single
         option(value='Married') Married
         option(value='Enganged') Enganged
@@ -29,4 +28,7 @@ block content
       input.form-control(name='education', type='text' value!= theuser.education)
     br
     input.btn.btn-primary(type='submit', value='Submit')
+    br
+    br
+    a(href='/users/'+user.username) Cancel
   

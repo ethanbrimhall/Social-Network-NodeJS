@@ -6,3 +6,12 @@ block title
 block content
   h1 index
   a(href="/users/"+user.username) My Profile
+  br
+  br
+  h3 Search for Someone
+  form(method='POST', action='/')
+    #form-group
+      label Name:
+      input.form-control(name='name', type='text')
+    br
+    input.btn.btn-primary(type='submit', value='Search')
