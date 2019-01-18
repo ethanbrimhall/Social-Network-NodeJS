@@ -1,19 +1,24 @@
 extends layout
 
 block title
-  title myapp
+  title!= theuser.name
   
 block content
-  h4= theuser.username
-  h1= theuser.name
+  h1#name_text_profile= theuser.name
+  hr
+  h2#title_text_profile About
   if(theuser.age != "NA")
-    h3= "Age: "+theuser.age
+    h3#small_text_profile!= theuser.age + " years old"
   if(theuser.relationship != "NA")
-    h3= "Relationship: "+theuser.relationship
+    h3#small_text_profile!= theuser.relationship
   if(theuser.job != "NA")
-    h3= "Job: "+theuser.job
+    h3#small_text_profile= "Works at "+theuser.job
   if(theuser.education != "NA")
-    h3= "Education: "+theuser.education
+    h3#small_text_profile= "Studied at "+theuser.education
   
   if(user.username == theuser.username)
+    br
     a(href="/users/"+user.username+"/edit") Edit your profile
+  
+  hr
+  h2#title_text_profile Posts

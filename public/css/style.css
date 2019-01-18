@@ -13,3 +13,28 @@
 #searchbar{
   width:350px;
 }
+
+#LR_title{
+  font-family: Helvetica, Arial, sans-serif;
+}
+#login_register_inputs{
+  width: 375px;
+}
+
+#login_register_buttons{
+  width:375px;
+}
+
+#title_text_profile{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+#name_text_profile{
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  line-height: 30px;
+}
+#small_text_profile{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 15px;
+}
