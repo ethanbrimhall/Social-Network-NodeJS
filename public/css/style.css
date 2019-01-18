@@ -27,7 +27,9 @@
 
 #title_text_profile{
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 20px;
+  font-weight: lighter;
+  font-size: 22px;
+  color:gray
 }
 #name_text_profile{
   font-family: Helvetica, Arial, sans-serif;

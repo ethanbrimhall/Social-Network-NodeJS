@@ -6,17 +6,28 @@ block title
 block content
   h1#name_text_profile= theuser.name
   hr
-  h2#title_text_profile About
+  h2#title_text_profile Info
+  
   if(theuser.age != "NA")
-    h3#small_text_profile!= theuser.age + " years old"
+    h3#small_text_profile
+      i.fa.fa-user(aria-hidden='true')
+      != " " + theuser.age + " years old"
   if(theuser.location != "NA")
-    h3#small_text_profile!= "Lives in " + theuser.location
+    h3#small_text_profile
+      i.fa.fa-home(ario-hidden='true')
+      != " Lives in " + theuser.location
   if(theuser.relationship != "NA")
-    h3#small_text_profile!= theuser.relationship
+    h3#small_text_profile
+      i.fa.fa-heart(ario-hidden='true')
+      != " " + theuser.relationship
   if(theuser.job != "NA")
-    h3#small_text_profile= "Works at "+theuser.job
+    h3#small_text_profile
+      i.fa.fa-briefcase(ario-hidden='true')
+      != " Works at "+theuser.job
   if(theuser.education != "NA")
-    h3#small_text_profile= "Studied at "+theuser.education
+    h3#small_text_profile
+      i.fa.fa-graduation-cap(ario.hidden='true')
+      !=" Studied at "+theuser.education
   
   if(user.username == theuser.username)
     br
