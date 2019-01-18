@@ -9,6 +9,8 @@ block content
   h2#title_text_profile About
   if(theuser.age != "NA")
     h3#small_text_profile!= theuser.age + " years old"
+  if(theuser.location != "NA")
+    h3#small_text_profile!= "Lives in " + theuser.location
   if(theuser.relationship != "NA")
     h3#small_text_profile!= theuser.relationship
   if(theuser.job != "NA")

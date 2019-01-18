@@ -4,10 +4,14 @@ block title
   title myapp
   
 block content
-
+  h2#foundusers_title_search Found Users
+  
   if foundUsers
-    h2 Found Users:
     each theuser, i in foundUsers
-      a(href="/users/"+theuser.username)!= theuser.name
-      br
+      .container
+        hr
+        a#user_link_search(href="/users/"+theuser.username)!= theuser.name
+        if(theuser.location != "NA")
+          h5#user_location_search!= theuser.location
+        
   

@@ -15,7 +15,7 @@ router.get('/register', ensureUnAuthenticated, (req, res) =>{
 });
 
 router.get('/search', ensureAuthenticated, (req, res) =>{
-  res.render('/search');
+  res.render('search');
 });
 
 router.post('/search', ensureAuthenticated, (req, res) =>{
@@ -97,7 +97,8 @@ router.post('/register', (req, res) =>{
           age:"NA",
           relationship:"NA",
           job:"NA",
-          education:"NA"
+          education:"NA",
+          location:"NA"
         });
 
         bcrypt.genSalt(10, (err, salt) => {
@@ -147,6 +148,7 @@ router.post('/:id/edit', ensureAuthenticated, (req, res) =>{
   user.relationship = req.body.Relations;
   user.job = req.body.job;
   user.education = req.body.education;
+  user.location = req.body.location;
 
   let query = {username:req.params.id};
 
