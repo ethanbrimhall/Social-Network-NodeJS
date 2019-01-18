@@ -14,6 +14,24 @@ router.get('/register', ensureUnAuthenticated, (req, res) =>{
   res.render('register');
 });
 
+router.get('/search', ensureAuthenticated, (req, res) =>{
+  res.render('/search');
+});
+
+router.post('/search', ensureAuthenticated, (req, res) =>{
+  let query = {name:{$regex: req.body.name, $options: "i"}};
+  User.find(query, function(err, users){
+    if(err){
+      console.log(err);
+    }
+
+    return res.render('search', {
+      user:req.user,
+      foundUsers: users
+    });
+  }).limit(10);
+});
+
 router.get('/:id/edit', ensureAuthenticated, (req, res) =>{
   if(req.user.username == req.params.id){
     res.render('edit_profile', {
@@ -66,7 +84,7 @@ router.post('/register', (req, res) =>{
             errors: [{param:"username", msg:"Username is already in use", value: ""}]
           });
         }
-      }else if(username == "register" || username == "login" || username == "logout"){
+      }else if(username == "register" || username == "login" || username == "logout" || username == "search"){
         res.render('register', {
           errors: [{param:"username", msg:"Username is already in use", value: ""}]
         });

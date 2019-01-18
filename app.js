@@ -86,17 +86,7 @@ app.get('/', ensureAuthenticated, (req, res) =>{
 });
 
 app.post('/', ensureAuthenticated, (req, res) =>{
-  let query = {name:{$regex: req.body.name, $options: "i"}};
-  User.find(query, function(err, users){
-    if(err){
-      console.log(err);
-    }
-
-    return res.render('index', {
-      user:req.user,
-      foundUsers: users
-    });
-  }).limit(10);
+  //nothing yet
 });
 
 // Access Control
