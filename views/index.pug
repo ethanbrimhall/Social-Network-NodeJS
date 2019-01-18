@@ -4,20 +4,12 @@ block title
   title myapp
   
 block content
-  h1 index
-  a(href="/users/"+user.username) My Profile
+
+  if foundUsers
+    h2 Found Users:
+    each theuser, i in foundUsers
+      a(href="/users/"+theuser.username)!= theuser.name
+      br
   br
-  br
-  h3 Search for Someone
-  form(method='POST', action='/')
-    #form-group
-      label Name:
-      input.form-control(name='name', type='text')
-    br
-    input.btn.btn-primary(type='submit', value='Search')
-    br
-    if foundUsers
-      h2 Found Users:
-      each theuser, i in foundUsers
-        a(href="/users/"+theuser.username)!= theuser.name
-        br
+  h1 Posts
+  

@@ -34,6 +34,8 @@ app.set('view engine', 'pug');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Express Session middleware
 app.use(session({
   secret: "mysecret123",
@@ -94,7 +96,7 @@ app.post('/', ensureAuthenticated, (req, res) =>{
       user:req.user,
       foundUsers: users
     });
-  });
+  }).limit(10);
 });
 
 // Access Control
