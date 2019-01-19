@@ -83,10 +83,37 @@ app.get('*', (req, res, next) =>{
 // Feed route
 app.get('/', ensureAuthenticated, (req, res) =>{
   res.render('index');
+  //Go through all friends and gather their last 10 posts and put into one array
+  //Sort array by timestamp, newest to oldest
 });
 
 app.post('/', ensureAuthenticated, (req, res) =>{
-  //nothing yet
+
+  let user = {};
+  user.posts = req.user.posts;
+
+  let newPost = {
+    "text":req.body.post,
+    "likes": "0",
+    "comments": [],
+    "timestamp": Date.now().toString()
+  };
+
+  user.posts.push(newPost);
+
+  User.updateOne({username:req.user.username}, user, function(err){
+    if(err){
+      console.log(err);
+      return;
+    }else{
+      req.flash('success', 'Post Added!');
+      return res.render('index', {
+        user:req.user
+      });
+    }
+  });
+
+
 });
 
 // Access Control
