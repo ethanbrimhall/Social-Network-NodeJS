@@ -82,9 +82,11 @@ app.get('*', (req, res, next) =>{
 
 // Feed route
 app.get('/', ensureAuthenticated, (req, res) =>{
-  res.render('index');
-  //Go through all friends and gather their last 10 posts and put into one array
-  //Sort array by timestamp, newest to oldest
+  var posts = getPosts(req.user);
+  console.log(posts);
+  res.render('index', {
+    posts:posts
+  });
 });
 
 app.post('/', ensureAuthenticated, (req, res) =>{
@@ -96,6 +98,8 @@ app.post('/', ensureAuthenticated, (req, res) =>{
     "text":req.body.post,
     "likes": "0",
     "comments": [],
+    "name":req.user.name,
+    "username":req.user.username,
     "timestamp": Date.now().toString()
   };
 
@@ -107,14 +111,39 @@ app.post('/', ensureAuthenticated, (req, res) =>{
       return;
     }else{
       req.flash('success', 'Post Added!');
+      var posts = getPosts(req.user);
       return res.render('index', {
-        user:req.user
+        user:req.user,
+        posts:posts
       });
     }
   });
-
-
 });
+
+function getPosts(user){
+  var posts = [];
+  for(var i = user.posts.length - 1; i >= 0; i--){
+    posts.push(user.posts[i]);
+  }
+  for(var i = 0; i < user.friends.length; i++){
+    let query = {username:user.friends[i]};
+    User.findOne(query, function(err, theuser){
+      if(err) throw err;
+
+      if(theuser){
+        if(theuser.posts.length > 0){
+          for(var j = theuser.posts.length - 1; j >= 0; j--){
+            var currentPost = theuser.posts[j];
+            posts.push(currentPost);
+          }
+        }
+      }
+    });
+  }
+
+  return posts;
+
+}
 
 // Access Control
 function ensureAuthenticated(req, res, next){

@@ -13,6 +13,25 @@
 .something{
 
 }
+#name_post{
+  font-size: 18px;
+}
+#time_post{
+  color:gray;
+  font-family: Helvetica, Arial, sans-serif;
+}
+#text_post{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 25px;
+  font-weight: lighter;
+}
+#likes_post{
+  font-size: 12px;
+}
+#likes_post:hover{
+  color:red;
+}
+
 #add_friend_btn{
   background-color: green;
 }

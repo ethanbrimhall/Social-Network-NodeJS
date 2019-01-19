@@ -50,3 +50,13 @@ block content
   h2#title_text_profile Friends
   hr
   h2#title_text_profile Posts
+  each post, i in posts
+      hr
+      a#name_post(href='/users/'+post.username)!=post.name
+      h6#time_post!= post.timestamp + " minutes ago"
+      h3#text_post!=post.text
+      br
+      form(method='POST', action='')
+        button#likes_post.btn.btn-default(type='submit', value="Search")
+          i.fa.fa-heart(aria-hidden='true')
+          != " " + post.likes

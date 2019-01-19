@@ -168,12 +168,18 @@ router.post('/:id/edit', ensureAuthenticated, (req, res) =>{
 
 router.get('/:id', ensureAuthenticated, (req, res) => {
   let query = {username:req.params.id};
+  var posts = [];
+
   User.findOne(query, function(err, user){
     if(err) throw err;
 
     if(user){
+      for(var i = user.posts.length - 1; i >= 0; i--){
+        posts.push(user.posts[i]);
+      }
       res.render('profile', {
-        theuser:user
+        theuser:user,
+        posts:posts
       });
     }else{
       req.flash('success', 'no user found');
