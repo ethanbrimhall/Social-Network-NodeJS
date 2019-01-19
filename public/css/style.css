@@ -10,6 +10,25 @@
   border-color: #d6e9c6;
 }
 
+.something{
+
+}
+#add_friend_btn{
+  background-color: green;
+}
+
+#remove_friends_btn{
+
+}
+
+#post{
+  resize: none;
+  width:500px;
+}
+#post_button{
+  width:500px;
+  height:40px;
+}
 #searchbar{
   width:350px;
 }

@@ -37,6 +37,14 @@ const userSchema = mongoose.Schema({
   location:{
     type: String,
     required: true
+  },
+  friends:{
+    type: Array,
+    required: true
+  },
+  posts:{
+    type: Array,
+    required: true
   }
 });
 

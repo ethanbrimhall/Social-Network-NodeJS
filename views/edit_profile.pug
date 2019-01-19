@@ -4,18 +4,21 @@ block title
   title myapp
 
 block content
-  h1 Edit Profile
-  h3!= theuser.username
+  h1#LR_title Edit Profile
+  hr
   form(method='POST', action='/users/'+theuser.username+"/edit")
     #form-group
       label Your Name:
-      input.form-control(name='name', type='text' value!= theuser.name)
+      input#login_register_inputs.form-control(name='name', type='text' value!= theuser.name)
+    br
     #form-group
       label Your Age:
-      input.form-control(name='age', type='text' value!= theuser.age)
+      input#login_register_inputs.form-control(name='age', type='text' value!= theuser.age)
+    br
     #form-group
       label Your Location:
-      input.form-control(name='location', type='text' value!= theuser.location)
+      input#login_register_inputs.form-control(name='location', type='text' value!= theuser.location)
+    br
     #form-group
       label Your Relationship:
       br
@@ -24,14 +27,16 @@ block content
         option(value='Married') Married
         option(value='Enganged') Enganged
         option(value='Dating') Dating
+    br
     #form-group
       label Your Job:
-      input.form-control(name='job', type='text' value!= theuser.job)
+      input#login_register_inputs.form-control(name='job', type='text' value!= theuser.job)
+    br
     #form-group
       label Your Education:
-      input.form-control(name='education', type='text' value!= theuser.education)
+      input#login_register_inputs.form-control(name='education', type='text' value!= theuser.education)
     br
-    input.btn.btn-primary(type='submit', value='Submit')
+    input#login_register_buttons.btn.btn-primary(type='submit', value='Submit')
     br
     br
     a(href='/users/'+user.username) Cancel

@@ -5,6 +5,19 @@ block title
   
 block content
   h1#name_text_profile= theuser.name
+  if(user.username != theuser.username)
+    if(user.friends.indexOf(theuser.username) > -1)
+      form(method='POST', action='/users/'+theuser.username)
+        button#remove_friends_btn.btn.btn-primary(type='submit', value='Add Friend')
+          i.fa.fa-check(aria-hidden='true'+theuser.username)
+          != " Friends"
+    else
+      form(method='POST', action='/users/'+theuser.username)
+        button#add_friend_btn.btn.btn-primary(type='submit', value='Add Friend')
+          i.fa.fa-address-book(aria-hidden='true')
+          != " Add Friend"
+    
+        
   hr
   h2#title_text_profile Info
   

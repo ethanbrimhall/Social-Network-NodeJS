@@ -38,7 +38,7 @@ router.get('/:id/edit', ensureAuthenticated, (req, res) =>{
       theuser: req.user
     });
   }else{
-    req.flash('success', 'you do not have permissions');
+    req.flash('danger', 'You do not have permissions');
     res.redirect('/');
   }
 });
@@ -98,7 +98,8 @@ router.post('/register', (req, res) =>{
           relationship:"NA",
           job:"NA",
           education:"NA",
-          location:"NA"
+          location:"NA",
+          friends:[]
         });
 
         bcrypt.genSalt(10, (err, salt) => {
@@ -149,6 +150,8 @@ router.post('/:id/edit', ensureAuthenticated, (req, res) =>{
   user.job = req.body.job;
   user.education = req.body.education;
   user.location = req.body.location;
+  user.posts = req.user.posts;
+  user.friends = req.user.friends;
 
   let query = {username:req.params.id};
 
@@ -177,6 +180,36 @@ router.get('/:id', ensureAuthenticated, (req, res) => {
       res.redirect('/');
     }
   })
+});
+
+router.post('/:id', ensureAuthenticated, (req, res) =>{
+
+  var decision = 0;
+
+  let user = {};
+  user.friends = req.user.friends;
+
+  if(user.friends.indexOf(req.params.id) > -1){
+    user.friends.splice(user.friends.indexOf(req.params.id), user.friends.indexOf(req.params.id) + 1);
+    decision = 1;
+  }else{
+    user.friends.push(req.params.id);
+  }
+  let query = {username:req.user.username};
+
+  User.updateOne(query, user, function(err){
+    if(err){
+      console.log(err);
+      return;
+    }else{
+      if(decision == 0){
+        req.flash('success', 'Friend Added!');
+      }else{
+        req.flash('success', 'Friend Removed!');
+      }
+      res.redirect('/users/'+req.params.id);
+    }
+  });
 });
 
 // Checks if user is logged in and redirects to login if NOT

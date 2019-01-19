@@ -4,6 +4,10 @@ block title
   title myapp
   
 block content
+  form(method='POST', action='/')
+    #form-group
+      textarea#post.form-control(name='post' rows='5', placeholder!="What do you want to say, " + user.name + "?")
+    br
+    input#post_button.btn.btn-primary(type='submit', value='Post')
 
-  h1 Posts
   
